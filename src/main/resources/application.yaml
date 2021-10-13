@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: prod
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+discount:
+  delivery-fee: 5
+  delivery-fee-limit: 100
+  percentage: 20
+  credit-cart-commission: 8
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+discount:
+  delivery-fee: 2
+  delivery-fee-limit: 50
+  percentage: 15
+  credit-cart-commission: 2
