@@ -3,7 +3,9 @@ package com.example.dogukanaligundoganh3.configuration;
 
 import com.example.dogukanaligundoganh3.model.category.Category;
 import com.example.dogukanaligundoganh3.model.category.Product;
+import com.example.dogukanaligundoganh3.model.checkout.Checkout;
 import com.example.dogukanaligundoganh3.model.menu.Menu;
+import com.example.dogukanaligundoganh3.service.product.CheckoutService;
 import com.example.dogukanaligundoganh3.type.CategoryType;
 import com.example.dogukanaligundoganh3.type.SubCategoryType;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,7 @@ import java.util.Scanner;
 @Configuration
 public class ApplicationConfiguration {
 
+    //general
     @Bean
     public Menu menu(){return Menu.builder().selectedMenuItem("").menuId(2).build();}
 
@@ -25,6 +28,8 @@ public class ApplicationConfiguration {
         return new Scanner(System.in);
     }
 
+
+    //category
     @Bean
     public List<Category<Product, SubCategoryType>> subCategories(){return new ArrayList<>();}
 
@@ -36,4 +41,9 @@ public class ApplicationConfiguration {
 
     @Bean
     public List<String> getSubCategoryList(){return Arrays.asList("Fruit","Vegetable","Chips","Chocolate","Milk","Delicatessen");}
+
+    //checkout
+    @Bean
+    public Checkout getCheckout(){return Checkout.builder().checkoutItems(new ArrayList<>()).totalPrice(0).build();}
+
 }

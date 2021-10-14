@@ -9,15 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class Checkout {
-    private List<Product> checkoutItems;
+    private List<CheckoutItem> checkoutItems;
     private double totalPrice;
 
-    boolean addItem(Product product){
-        try{
-            checkoutItems.add(product);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
 }

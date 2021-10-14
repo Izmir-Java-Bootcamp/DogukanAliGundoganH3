@@ -1,4 +1,4 @@
-package com.example.dogukanaligundoganh3.service;
+package com.example.dogukanaligundoganh3.service.discount;
 
 import com.example.dogukanaligundoganh3.model.checkout.Checkout;
 import com.example.dogukanaligundoganh3.model.interfaces.Discount;
