@@ -1,8 +1,10 @@
 package com.example.dogukanaligundoganh3;
 
-import com.example.dogukanaligundoganh3.model.menu.Menu;
+import com.example.dogukanaligundoganh3.model.interfaces.Payment;
 import com.example.dogukanaligundoganh3.service.discount.Buy2Take3Discount;
+import com.example.dogukanaligundoganh3.service.discount.DiscountService;
 import com.example.dogukanaligundoganh3.service.menu.MenuService;
+import com.example.dogukanaligundoganh3.service.payment.factory.Factory;
 import com.example.dogukanaligundoganh3.service.product.CheckoutService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -14,23 +16,17 @@ public class StartApp implements CommandLineRunner {
 
     private final MenuService menuService;
     private final CheckoutService checkoutService;
+    private final DiscountService discountService;
 
 
     private final Buy2Take3Discount buy2Take3Discount;
 
-    public StartApp(MenuService menuService, CheckoutService checkoutService, Buy2Take3Discount buy2Take3Discount) {
+    public StartApp(MenuService menuService, CheckoutService checkoutService, DiscountService discountService, Buy2Take3Discount buy2Take3Discount) {
         this.menuService = menuService;
         this.checkoutService = checkoutService;
-        this.buy2Take3Discount = buy2Take3Discount;
+        this.discountService = discountService;
+         this.buy2Take3Discount = buy2Take3Discount;
     }
-
-    /*
-
-    **** urunlere aciklama girilecekmi
-    **** urunlerin fiyatlari girilecek mi
-    **** hazi bilgilerin bulundugu bir sepet olup fiyat vb bilgiler oradan mi alinacak
-    **** arama ekraninda urun ciktiktan sonra category secimi olmayacak sadece urun mu secilecek
-     */
 
     @Override
     public void run(String... args) throws Exception {
@@ -40,16 +36,18 @@ public class StartApp implements CommandLineRunner {
             if (flag){
                 if (menuService.isProductAdded()){
                     checkoutService.addCheckoutItem(menuService.getCheckoutItem());
+                }else{
+                    checkoutService.addCheckoutItem(menuService.getSearchItem());
                 }
-                // else kismina search eklenecek
+
             }
         }
-        checkoutService.makeDiscount();
-        checkoutService.makePayment();
+        discountService.makeDiscount(checkoutService.getCheckout());
+        Payment payment = menuService.getPaymentMethod();
+        payment.pay(checkoutService.getCheckout());
 
     }
 
-    //generic tanimlamarda builder nasil kullanilir object olarak donuyor
 
 
 }

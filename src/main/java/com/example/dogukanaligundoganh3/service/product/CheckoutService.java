@@ -1,6 +1,7 @@
 package com.example.dogukanaligundoganh3.service.product;
 
 
+import com.example.dogukanaligundoganh3.model.category.Product;
 import com.example.dogukanaligundoganh3.model.checkout.Checkout;
 import com.example.dogukanaligundoganh3.model.checkout.CheckoutItem;
 import com.example.dogukanaligundoganh3.service.discount.DiscountStrategy;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CheckoutService {
@@ -32,14 +34,12 @@ public class CheckoutService {
         }
         return checkout;
     }
-
-    public void makeDiscount(){
-        discountStrategy.makeDiscount(
-                checkout
-        );
+    public List<CheckoutItem> getProducts(String word){
+        return checkout.getCheckoutItems().stream().filter(product-> product.getProduct().getName().contains(word))
+                .collect(Collectors.toList());
+    }
+    public Checkout getCheckout(){
+        return checkout;
     }
 
-    public void makePayment(){
-
-    }
 }

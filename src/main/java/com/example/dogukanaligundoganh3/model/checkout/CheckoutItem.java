@@ -16,4 +16,18 @@ public class CheckoutItem {
         this.product = product;
         this.quantity = quantity;
     }
+
+    public void applyBuy2Take3Discount(){
+        int totalDiscountAmount=quantity/3;
+        int restProductNotEffectedByDiscount=quantity%3;
+        product.setPrice((totalDiscountAmount*2*product.getPrice()+product.getPrice()*restProductNotEffectedByDiscount)/quantity);
+    }
+
+    @Override
+    public String toString() {
+        return "CheckoutItem{\n" +
+                "product=" + product +
+                ", \nquantity=" + quantity +
+                '}';
+    }
 }
